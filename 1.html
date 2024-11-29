@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D.A.R.E - Disaster AI Response Engine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      color: #2c2c2c;
+      background: #f3f7fc;
+    }
+
+    header {
+      background: #003366;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+    }
+
+    header nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    header nav a:hover {
+      color: #ffcc00;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      margin: 3px 0;
+    }
+
+    .nav-links {
+      display: flex;
+    }
+
+    section.hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(120deg, #0073e6, #00aaff);
+      color: white;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    section.hero h1 {
+      font-size: 3rem;
+      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 20px;
+    }
+
+    section.hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    section.hero button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      margin: 5px;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #ffcc00;
+      color: #003366;
+    }
+
+    .btn-primary:hover {
+      background-color: #e6b800;
+      transform: scale(1.05);
+    }
+
+    .btn-secondary {
+      background-color: #005bb5;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #004999;
+      transform: scale(1.05);
+    }
+
+    .btn-emergency {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #cc0000;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 50%;
+      border: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      z-index: 999;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-emergency:hover {
+      background-color: #b30000;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      nav.nav-links {
+        display: none;
+        flex-direction: column;
+        background: #003366;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 50%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      nav.nav-links a {
+        margin: 10px 0;
+        text-align: center;
+      }
+
+      nav.nav-links.show {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>D.A.R.E</h1>
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav class="nav-links" id="nav-links">
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Empowering Relief with AI</h1>
+    <p>Disaster AI Response Engine harnesses cutting-edge technology to save lives and bring hope during crises. Let’s make a difference together.</p>
+    <button class="btn-primary" onclick="window.location.href='user.html'">Get Started</button>
+    <button class="btn-secondary">Learn More</button>
+  </section>
+
+  <button class="btn-emergency" onclick="window.location.href='emergency.html'">SOS</button>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>

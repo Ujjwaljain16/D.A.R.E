@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DisasterAI Volunteer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<style>
+   
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+   
+
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #003366;
+    padding: 1rem 2rem;
+    color: white;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: white;
+    margin: 0 1rem;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.auth-buttons .btn {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-login {
+    background-color: #2c76ed;
+    color: white;
+    font-size: 14px;
+}
+
+.btn-signup {
+    background-color:  #2c76ed;
+    color: white;
+    font-size: 14px;
+}
+
+.btn-login:hover {
+    background-color: #2153c7;
+}
+
+.btn-signup:hover {
+    background-color: #2153c7;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(120deg, #0073e6, #00aaff);
+    color: white;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.btn-yellow {
+    background-color: #ffcc00;
+    color: black;
+    font-size: 15px;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-yellow:hover {
+    background-color: #e6b800;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+/* Features Section */
+.features {
+    padding: 2rem;
+    text-align: center;
+    background: #f7fafc;
+}
+
+.features h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.feature-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.card {
+    background: white;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1 1 30%;
+    max-width: 300px;
+}
+
+.card:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Call to Action Section */
+.cta {
+    padding: 2rem;
+    text-align: center;
+    background: #38b2ac;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cta h2 {
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 1rem;
+    background: #333;
+    color: white;
+}
+
+.footer a {
+    color: #38b2ac;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        background: #333;
+        padding: 1rem;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        border-radius: 8px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .feature-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">D.A.R.E</div>
+        <nav class="nav-links">
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="auth-buttons">
+            <button id="login-btn" class="btn btn-login">Login</button>
+            <button id="signup-btn" class="btn btn-signup">Sign Up</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Join D.A.R.E Volunteer Program</h1>
+        <p>
+            Help us respond to disasters faster and more effectively with the power of AI. 
+            Volunteer today to make a difference in people's lives.
+        </p>
+        <button class="btn btn-yellow">Become a Volunteer</button>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>Why Volunteer with D.A.R.E?</h2>
+        <div class="feature-cards">
+            <div class="card">
+                <h3>AI-Driven Impact</h3>
+                <p>Contribute to a system that uses AI to analyze and predict disaster needs in real time.</p>
+            </div>
+            <div class="card">
+                <h3>Global Reach</h3>
+                <p>Collaborate with volunteers and experts worldwide to maximize the response efficiency.</p>
+            </div>
+            <div class="card">
+                <h3>Skill Building</h3>
+                <p>Gain valuable skills in disaster management, AI operations, and team collaboration.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+        <h2>Ready to Make an Impact?</h2>
+        <p>Sign up today and become a vital part of our mission to bring timely relief to those in need.</p>
+        <button class="btn btn-yellow">Volunteer Now</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 D.A.R.E. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:support@disasterai.org">support@disasterai.org</a></p>
+    </footer>
+</body>
+
+    <script >
+        // Add click events for Login and Sign Up buttons
+document.getElementById('login-btn').addEventListener('click', function () {
+    window.location.href = 'login.html';
+});
+
+
+document.getElementById('signup-btn').addEventListener('click', function () {
+    window.location.href = 'signup.html';
+});
+
+document.querySelectorAll('.btn-yellow').forEach(button => {
+            button.addEventListener('click', function () {
+                window.location.href = 'signup.html';
+            });
+        });
+
+
+
+
+
+
+
+const menuToggle = document.getElementById('menu-toggle');
+const navLinks = document.getElementById('nav-links');
+
+menuToggle.addEventListener('click', () => {
+    const isVisible = navLinks.style.display === 'block';
+    navLinks.style.display = isVisible ? 'none' : 'block';
+});
+    </script>
+
+</html>

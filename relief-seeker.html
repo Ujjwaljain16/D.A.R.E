@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DisasterRelief Hub</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --danger: #dc2626;
+            --success: #16a34a;
+            --warning: #d97706;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --background: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(to right, #b57e58 30%, #e4c8b5 60%);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .emergency-banner {
+            background-color:  #dc2626;;
+            color: white;
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+             background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* Forum Styles */
+        .forum-post {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 0;
+        }
+
+        .forum-post:last-child {
+            border-bottom: none;
+        }
+
+        /* Resource List Styles */
+        .resource-list {
+            list-style: none;
+        }
+
+        .resource-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Status Indicators */
+        .status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-open {
+            background: #dcfce7;
+            color: var(--success);
+        }
+
+        .status-full {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+        🚨 EMERGENCY ALERT: 
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>DisasterRelief Hub</h1>
+            <nav>
+                <button class="btn btn-primary" onclick="toggleNeedAssessment()">I Need Help</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Real-time Updates Section -->
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Current Situation</h2>
+                    <span class="status status-open">Active Alert</span>
+                </div>
+                <div id="updates-feed">
+                    <!-- Updates will be populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Essential Contacts -->
+            <div class="card">
+                <h2>Emergency Contacts</h2>
+                <div class="resource-list">
+                    <div class="resource-item">
+                        <div>
+                            <h3>Emergency Services</h3>
+                            <p>112</p>
+                        </div>
+                        <button class="btn btn-primary">Call Now</button>
+                    </div>
+                    <div class="resource-item">
+                        <div>
+                            <h3>Flood Control</h3>
+                            <p>1-800-FLOOD-HELP</p>
+                        </div>
+                        <button class="btn btn-primary">Call Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resource Map -->
+        <div class="card">
+            <h2>Nearby Resources</h2>
+            <div id="resource-map" class="map-container"></div>
+        </div>
+
+        <!-- Need Assessment Form -->
+        <div id="need-assessment" class="card" style="display: none;">
+            <h2>Tell Us What You Need</h2>
+            <form id="needs-form">
+                <div class="form-group">
+                    <label class="form-label">What type of help do you need?</label>
+                    <select class="form-input" required>
+                        <option value="">Select assistance type...</option>
+                        <option value="shelter">Emergency Shelter</option>
+                        <option value="medical">Medical Assistance</option>
+                        <option value="food">Food and Water</option>
+                        <option value="evacuation">Evacuation Assistance</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of people needing assistance</label>
+                    <input type="number" class="form-input" required min="1">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Current Location</label>
+                    <input type="text" class="form-input" placeholder="Enter your address or click on map">
+                </div>
+                <button type="submit" class="btn btn-primary">Request Help</button>
+            </form>
+        </div>
+
+        <!-- Community Forum -->
+        <div class="card">
+            <h2>Community Updates</h2>
+            <div id="forum-feed">
+                <!-- Forum posts will be populated dynamically -->
+            </div>
+            <form id="forum-post-form">
+                <textarea class="form-input" placeholder="Share information or ask for help..."></textarea>
+                <button type="submit" class="btn btn-primary">Post Update</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Sample data for demonstration
+        const updates = [
+            {
+                time: '10 minutes ago',
+                message: 'Flash flood warning extended for riverside areas. Expect heavy rainfall for next 3 hours.',
+                severity: 'high'
+            },
+            {
+                time: '25 minutes ago',
+                message: 'Emergency shelter at Community Center has reached 70% capacity.',
+                severity: 'medium'
+            },
+            {
+                time: '1 hour ago',
+                message: 'Road closure: Main Street between 5th and 7th Avenue due to flooding.',
+                severity: 'medium'
+            }
+        ];
+
+        const resources = [
+            {
+                type: 'shelter',
+                name: 'Community Center',
+                location: [40.7128, -74.0060],
+                capacity: '70%',
+                status: 'open'
+            },
+            {
+                type: 'medical',
+                name: 'Emergency Medical Station',
+                location: [40.7150, -74.0060],
+                status: 'open'
+            }
+        ];
+
+        // Initialize map
+        const map = L.map('resource-map').setView([40.7128, -74.0060], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        // Add markers for resources
+        resources.forEach(resource => {
+            const marker = L.marker(resource.location)
+                .bindPopup(`
+                    <strong>${resource.name}</strong><br>
+                    Type: ${resource.type}<br>
+                    Status: ${resource.status}<br>
+                    ${resource.capacity ? `Capacity: ${resource.capacity}` : ''}
+                `)
+                .addTo(map);
+        });
+
+        // Populate updates feed
+        const updatesFeed = document.getElementById('updates-feed');
+        updates.forEach(update => {
+            const updateElement = document.createElement('div');
+            updateElement.className = 'forum-post';
+            updateElement.innerHTML = `
+                <p>${update.message}</p>
+                <small>${update.time}</small>
+            `;
+            updatesFeed.appendChild(updateElement);
+        });
+
+        // Toggle need assessment form
+        function toggleNeedAssessment() {
+            const form = document.getElementById('need-assessment');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Handle form submission
+        document.getElementById('needs-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your request has been submitted. Help is on the way!');
+        });
+
+        // Handle forum posts
+        document.getElementById('forum-post-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const textarea = this.querySelector('textarea');
+            const postElement = document.createElement('div');
+            postElement.className = 'forum-post';
+            postElement.innerHTML = `
+                <p>${textarea.value}</p>
+                <small>Just now</small>
+            `;
+            document.getElementById('forum-feed').prepend(postElement);
+            textarea.value = '';
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const statuses = ['Monitoring water levels...', 'Updating shelter capacity...', 'Checking road conditions...'];
+            const status = statuses[Math.floor(Math.random() * statuses.length)];
+            const statusElement = document.createElement('div');
+            statusElement.className = 'forum-post';
+            statusElement.innerHTML = `
+                <p>${status}</p>
+                <small>Just now</small>
+            `;
+            updatesFeed.prepend(statusElement);
+            if (updatesFeed.children.length > 5) {
+                updatesFeed.removeChild(updatesFeed.lastChild);
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
